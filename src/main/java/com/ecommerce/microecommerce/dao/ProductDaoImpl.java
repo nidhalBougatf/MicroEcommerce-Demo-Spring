@@ -6,14 +6,14 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository // Specifying to spring that this class is used for Data Management , so we can use some features later ( like error
+@Repository // Specifying to spring that this class is used for Data Management , so we can use some features later ( like logging management ...)
 public class ProductDaoImpl implements ProductDao {
 
     public static List<Product> products = new ArrayList<>();
     static {
-        products.add(new Product(1, "MicroWave", 350));
-        products.add(new Product(2, "Computer", 500));
-        products.add(new Product(3, "TV", 750));
+        products.add(new Product(1, "MicroWave", 350,300));
+        products.add(new Product(2, "Computer", 500,400));
+        products.add(new Product(3, "TV", 750,650));
     }
 
     @Override
