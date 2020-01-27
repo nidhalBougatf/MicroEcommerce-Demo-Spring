@@ -1,11 +1,9 @@
 package com.ecommerce.microecommerce.dao;
 
-import com.ecommerce.model.Product;
-import org.springframework.stereotype.Repository;
+// ********************* No longer needed after extending from JPARepository in ProductDaoInterface **********************************************
 
-import java.util.ArrayList;
-import java.util.List;
 
+/*
 @Repository // Specifying to spring that this class is used for Data Management , so we can use some features later ( like logging management ...)
 public class ProductDaoImpl implements ProductDao {
 
@@ -37,3 +35,4 @@ public class ProductDaoImpl implements ProductDao {
         return product;
     }
 }
+*/
