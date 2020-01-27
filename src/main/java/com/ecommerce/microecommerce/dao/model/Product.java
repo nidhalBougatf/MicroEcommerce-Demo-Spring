@@ -1,8 +1,11 @@
 package com.ecommerce.microecommerce.dao.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 
 // Note:  In this Bean (or JavaBean), Constructor, Getters & Setters are mandatory
 
@@ -12,10 +15,14 @@ import javax.persistence.Id;
 @Entity
 public class Product {
 
+
+    // useful link for validators  : https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#preface
     @Id
     @GeneratedValue
     private int id;
+    @Length(min=3,max=40, message = "name length should be between 3 and 40 ")
     private String name;
+    @Min(value=50 ,message = "price should be greater than 50")
     private int price;
     //@JsonIgnore // static filter method 1 , used to hide this property while displaying ( replaced later by the dynamic filter )
     private int providerprice;

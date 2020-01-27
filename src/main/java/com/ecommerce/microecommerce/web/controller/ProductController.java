@@ -2,11 +2,15 @@ package com.ecommerce.microecommerce.web.controller;
 
 import com.ecommerce.microecommerce.dao.ProductDao;
 import com.ecommerce.microecommerce.dao.model.Product;
+import com.ecommerce.microecommerce.web.exceptions.ProductNotFoundException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -14,31 +18,40 @@ import java.util.List;
 // This annotation is used to tell Spring that this class will:
 //   - deal with HTTP requests ( Get, Post, ...)
 //   - will return JSON data without passing through any views
+@Api( value="API used for managing the products ")
 @RestController
 public class ProductController {
 
-    @Autowired //  tell Spring that it should automatically create an instance of this interface
+    @Autowired //  to automatically create an instance of this interface
     private ProductDao productDao;
 
+    @ApiOperation(value=" method used to display the list of all products ")
     @RequestMapping(value="/products",method = RequestMethod.GET)
     public List<Product> listProducts()
     {
         return productDao.findAll();
     }
-
+    @ApiOperation(value=" method used for getting a product by its id ")
     @GetMapping(value="/products/{id}")
     public Product GetProductById(@PathVariable int id)
     {
-        return productDao.findById(id);
-    }
+        Product product = productDao.findById(id);
+        if(product==null)
+            throw new ProductNotFoundException("Product having id = "+id+" is not found !");
+        return product;
 
-    @GetMapping(value = "products/price/{priceLimit}")
-    public List<Product> products(@PathVariable int priceLimit) {
+    }
+    @ApiOperation(value=" method used to display products having a price greater than a given value")
+    @GetMapping(value = "test/price/{priceLimit}") // changed the path for later example in Swagger
+    public List<Product> LimitedPriceProducts(@PathVariable int priceLimit) {
         return productDao.findByPriceGreaterThan(priceLimit);
     }
-    @PostMapping(value="products")
-    // @RequestBody : Telling Spring to convert the JSON object, comming from the request, to a JAVA object ( product in this case)
-    public ResponseEntity<Void> AddProduct(@RequestBody Product product) {
+
+    @ApiOperation(value=" method used for adding a product ")
+    @PostMapping(value="/products")
+    // @RequestBody : to convert the JSON object, coming from the request, to a JAVA object ( product in this case)
+    // @Valid : to check for the validators added in Product Bean before accepting the product and add it in the database
+    public ResponseEntity<Void> AddProduct(@Valid @RequestBody Product product) {
 
         Product productAdded =  productDao.save(product);
 
@@ -55,13 +68,14 @@ public class ProductController {
 
         return ResponseEntity.created(location).build();
     }
-
+    @ApiOperation(value=" method used to delete a product, given by its id, from the database ")
     @DeleteMapping (value = "/products/{id}")
     public void deleteProduct(@PathVariable int id) {
        Product p=  productDao.findById(id);
        productDao.delete(p);
     }
 
+    @ApiOperation(value=" method used to update a specific product ")
     @PutMapping (value = "/products")
     public void updateProduct(@RequestBody Product product) {
         productDao.save(product);
