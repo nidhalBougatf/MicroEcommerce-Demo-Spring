@@ -2,7 +2,7 @@
 Spring Boot project created to present the fundamentals of microservice architecture, by implementing a simple product management services.
 
 Note: 
-- For further details, comments explaining the annotations and other information, can  be found in different places in the code.
+- For further details, comments explaining the annotations and other information, could be found in different places in the code.
 - Different versions of the project were provided to simplify the coding steps.
 
 # V1.0 
