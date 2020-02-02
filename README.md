@@ -41,4 +41,4 @@ Note:
 	
 #### This is a picture that summarizes the different implemented APIs and the Product model properties :
 	
-![Summary](https://user-images.githubusercontent.com/22817092/73225959-ae9db300-416e-11ea-9a59-b052651e6efc.PNG)
+![Summary](https://raw.githubusercontent.com/nidhalBougatf/MicroEcommerce-Demo-Spring/master/Product%20API.PNG)
